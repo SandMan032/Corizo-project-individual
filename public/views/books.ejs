@@ -1,0 +1,93 @@
+<%- include('partials/header.ejs') %>
+<div class="searchDiv">
+<input type="text"  class="bookSearch" placeholder="Search for book">
+</div>
+<div class="add-book">
+<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addBookModal">Add Book</button>
+</div>
+<div class="modal fade" id="addBookModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-center">Add Book</h4>
+        </div>
+        <div class="modal-body">
+          <form action="/addBook" method="post" class="book-form" id="book-form" enctype="multipart/form-data">
+            <label for="bTitle">Book Title:</label>
+            <input type="text" name="bTitle" id="bTitle" placeholder="Enter the title of the book">
+            <label for="bAuth">Book Author:</label>
+            <input type="text" name="bAuth" placeholder="Enter the author's name">
+            <label for="bDisc">Book Discription:</label>
+            <textarea name="bDisc" id="bDisc" placeholder="Enter discription" maxlength="100" rows="5" cols="5"></textarea>
+            <label for="bImg">Book Image:</label>
+            <input type="file" name="bImg">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" form="book-form">Add Book</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="books-div">
+  <% books.forEach(book => { %>
+    <div class="card">
+      <h3 class="card-title text-center"><%= book.title %></h3>
+      <img src="<%= book.imagePath %>" class="book-img">
+      <div class="card-body">
+        <ul>
+          <li><p>Author: <%= book.author %></p></li>
+          <li><p>Description: <%= book.discription %></p></li>
+          <% if (book.available) { %>
+            <li><p>Status: Available</p></li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-success issueb" data-bs-toggle="modal" data-bs-target="#issueBookModal-<%= book._id %>">Issue book</button>
+          <div class="modal fade" id="issueBookModal-<%= book._id %>" tabindex="-1" aria-labelledby="issueBookModalLabel-<%= book._id %>" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title text-center">Issue Book</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="/issueBook" method="post" class="borrower-form" id="borrower-form-<%= book._id %>">
+                    <input type="hidden" name="bookName" value="<%= book.title %>">
+                    <label for="borrowerName-<%= book._id %>">Borrower's Name:</label>
+                    <input type="text" name="borrowerName" id="borrowerName-<%= book._id %>" placeholder="Enter borrower's name">
+                    <label for="borrowerId-<%= book._id %>">Borrower's ID:</label>
+                    <input type="number" name="borrowerId" id="borrowerId-<%= book._id %>" placeholder="Enter borrower's ID number">
+                    <label for="borrowerContact-<%= book._id %>">Borrower's Contact Number:</label>
+                    <input type="number" name="borrowerContact" id="borrowerContact-<%= book._id %>" placeholder="Enter borrower's contact number">
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-success" form="borrower-form-<%= book._id %>">Issue book</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } else { %>
+            <li><p>Status: Unavailable</p></li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <form action="/checkin/<%= book.title%>?_method=PATCH" method="post">
+            <button type="submit" class="btn btn-success checkinb">Check-in book</button>
+          </form>
+          <% } %>
+          <form action="/removeBook/<%= book._id %>?_method=DELETE" method="post">
+            <button type="submit" class="btn btn-danger removeb">Remove book</button>
+          </form>
+        </div>
+      </div>
+  <% }); %>
+</div>
+
+<script src="../app.js"></script>
+<%- include('partials/footer.ejs') %>

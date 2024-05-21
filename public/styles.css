@@ -1,0 +1,96 @@
+body{
+    background-color: #f5f5dc;
+    font-family: "Ubuntu Sans", sans-serif;
+}
+
+
+h1{
+    width: 800px;
+    margin:50px auto;
+    text-align: center;
+    font-size: 3rem;
+}
+
+.nav-buttons{
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    margin: 100px auto;
+    gap: 100px;
+}
+
+.vbooks, .vborrowers{
+    background-color: #A79277;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.vbooks, .vborrowers:hover{
+    cursor: pointer;
+}
+
+
+.searchDiv{
+    display: flex;
+    justify-content: center;
+    margin: 50px auto 10px;
+}
+
+
+.bookSearch{
+    width: 800px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+
+}
+
+.add-book{
+    display: flex;
+    justify-content: center;
+}
+
+.book-form input, .book-form textarea, .book-form label, .borrower-form input, .borrower-form label{
+    display: block;
+    width: 300px;
+    margin:5px;
+    padding: 5px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+}
+.books-div {
+    margin: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Align items in the center */
+    gap: 1px; /* Optional: Adds space between cards */
+  }
+  
+  .card {
+    width: 300px;
+    margin: 15px; /* Optional: Adjust margin as needed */
+    border: solid;
+    border-width: 2px;
+  }
+
+  .card-title{
+    padding: 5px;
+    border-bottom: solid;
+    border-width: 2px;
+  }
+  
+
+.book-img{
+    height: 150px;
+    width: 150px;
+    display: block;
+    margin: 5px auto;
+}
+
+.issueb, .checkinb{
+    float: left;
+    line-height: 25px;
+}
+
+.removeb{float: right;
+line-height: 25px;}

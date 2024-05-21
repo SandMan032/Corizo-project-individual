@@ -1,0 +1,19 @@
+<%- include('partials/header.ejs') %>
+<% if (borrowers.length==0) { %>
+ <h1>No records found</h1>
+<% }else{%>
+    <% borrowers.forEach((borrower)=> { %>
+        <div class="card">
+           <div class="card-body">
+               <ul>
+                   <li>Borrower's name: <%= borrower.name %></li>
+                   <li>Book borrowed: <%= borrower.bookBorrowed %> </li>
+                   <li>Issue date: <%= borrower.issueDate %></li>
+                   <li>Borrower's ID number:<%= borrower.ID %></li>
+                   <li>Borrower's contact number: <%= borrower.contact %></li>
+               </ul>
+           </div>
+        </div>
+       <% }) %>
+<% } %>    
+<%- include('partials/footer.ejs') %>
